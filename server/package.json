@@ -1,0 +1,33 @@
+{
+  "name": "ip-rmt63",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FredlyMarvander/IP-RMT63.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FredlyMarvander/IP-RMT63/issues"
+  },
+  "homepage": "https://github.com/FredlyMarvander/IP-RMT63#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.0",
+    "jest": "^30.0.4",
+    "sequelize-cli": "^6.6.3",
+    "supertest": "^7.1.3"
+  }
+}
