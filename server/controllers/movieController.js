@@ -29,7 +29,6 @@ module.exports = class MovieController {
       const movies = await Movie.findAll(option);
       res.status(200).json(movies);
     } catch (error) {
-      console.error("Error fetching movies:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
@@ -45,7 +44,6 @@ module.exports = class MovieController {
 
       res.status(200).json(movie);
     } catch (error) {
-      console.error("Error fetching movie details:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }

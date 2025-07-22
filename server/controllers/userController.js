@@ -41,7 +41,6 @@ module.exports = class UserController {
         profilePicture: user.profilePicture,
       });
     } catch (error) {
-      console.error("Error during Google login:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
@@ -54,7 +53,6 @@ module.exports = class UserController {
 
       res.status(200).json(user);
     } catch (error) {
-      console.error("Error fetching user profile:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
@@ -75,7 +73,6 @@ module.exports = class UserController {
       ) {
         res.status(400).json({ message: error.errors[0].message });
       } else {
-        console.error("Error during registration:", error);
         res.status(500).json({ message: "Internal Server Error" });
       }
     }
@@ -96,12 +93,12 @@ module.exports = class UserController {
       const user = await User.findOne({ where: { email } });
 
       if (!user) {
-        return res.status(404).json({ message: "Invalid email/password" });
+        return res.status(401).json({ message: "Invalid email/password" });
       }
 
       const isValidPassword = comparePassword(password, user.password);
       if (!isValidPassword) {
-        return res.status(404).json({ message: "Invalid email/password" });
+        return res.status(401).json({ message: "Invalid email/password" });
       }
 
       const access_token = signToken({ id: user.id });
@@ -109,12 +106,7 @@ module.exports = class UserController {
         access_token,
       });
     } catch (error) {
-      if (error.name === "SequelizeValidationError") {
-        res.status(400).json({ message: error.errors[0].message });
-      } else {
-        console.error("Error during registration:", error);
-        res.status(500).json({ message: "Internal Server Error" });
-      }
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 };

@@ -1,5 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
+const axios = require("axios");
+const { hashPassword } = require("../helpers/bcrypt");
+require("dotenv").config();
 module.exports = (sequelize, DataTypes) => {
   class Movie extends Model {
     /**

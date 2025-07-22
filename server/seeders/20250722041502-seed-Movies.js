@@ -1,5 +1,6 @@
 "use strict";
 const axios = require("axios");
+const { hashPassword } = require("../helpers/bcrypt");
 require("dotenv").config();
 
 /** @type {import('sequelize-cli').Migration} */
@@ -35,6 +36,17 @@ module.exports = {
         updatedAt: new Date(),
       }));
 
+    await queryInterface.bulkInsert("Users", [
+      {
+        name: "fredly",
+        profilePict:
+          "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fdefault-user&psig=AOvVaw0xQTae1njWOBwGCKMMHB4f&ust=1753262434769000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCOiLkdiR0I4DFQAAAAAdAAAAABAE",
+        email: "fredly@gmail.com",
+        password: hashPassword("fredly123"),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
     await queryInterface.bulkInsert("Movies", allMovies);
   },
 
@@ -45,7 +57,14 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
     await queryInterface.bulkDelete("Movies", null, {
+      truncate: true,
+      restartIdentity: true,
+      cascade: true,
+    });
+
+    await queryInterface.bulkDelete("Users", null, {
       truncate: true,
       restartIdentity: true,
       cascade: true,

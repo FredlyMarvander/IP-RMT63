@@ -4,7 +4,7 @@ const { User } = require("../models/index");
 module.exports = async function authentication(req, res, next) {
   const token = req.headers.authorization;
   if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Invalid token" });
   }
 
   try {
@@ -12,18 +12,14 @@ module.exports = async function authentication(req, res, next) {
     const verify = verifyToken(realToken);
     const user = await User.findByPk(verify.id);
     if (!user) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return res.status(401).json({ message: "Invalid token" });
     }
     req.user = user;
     next();
   } catch (error) {
     if (error.name === "JsonWebTokenError") {
       return res.status(401).json({ message: "Invalid token" });
-    }
-    if (error.name === "TokenExpiredError") {
-      return res.status(401).json({ message: "Token expired" });
     } else {
-      console.error("Authentication error:", error);
       return res.status(500).json({ message: "Internal server error" });
     }
   }
