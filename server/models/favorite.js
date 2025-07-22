@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Favorite.init(
     {
-      notes: DataTypes.STRING,
+      notes: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+      },
       UserId: DataTypes.INTEGER,
       MovieId: DataTypes.INTEGER,
     },

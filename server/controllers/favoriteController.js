@@ -37,7 +37,6 @@ module.exports = class FavoriteController {
       await Favorite.create({
         UserId: req.user.id,
         MovieId: movieId,
-        note: "",
       });
 
       res.status(201).json({ message: "Movie added to favorites" });
@@ -49,7 +48,8 @@ module.exports = class FavoriteController {
 
   static async updateFavoriteNote(req, res) {
     try {
-      const { movieId, note } = req.body;
+      const { movieId } = req.params;
+      const { notes } = req.body;
       const favorite = await Favorite.findOne({
         where: {
           UserId: req.user.id,
@@ -61,7 +61,7 @@ module.exports = class FavoriteController {
         return res.status(404).json({ message: "Favorite not found" });
       }
 
-      await favorite.update({ note });
+      await favorite.update({ notes });
 
       res.status(200).json({ message: "Note updated successfully" });
     } catch (error) {
