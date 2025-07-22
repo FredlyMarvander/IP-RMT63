@@ -42,7 +42,7 @@ module.exports = class UserController {
       });
     } catch (error) {
       console.error("Error during Google login:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -55,7 +55,7 @@ module.exports = class UserController {
       res.status(200).json(user);
     } catch (error) {
       console.error("Error fetching user profile:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -76,7 +76,7 @@ module.exports = class UserController {
         res.status(400).json({ message: error.errors[0].message });
       } else {
         console.error("Error during registration:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ message: "Internal Server Error" });
       }
     }
   }
@@ -113,7 +113,7 @@ module.exports = class UserController {
         res.status(400).json({ message: error.errors[0].message });
       } else {
         console.error("Error during registration:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ message: "Internal Server Error" });
       }
     }
   }

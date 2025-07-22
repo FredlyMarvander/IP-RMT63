@@ -11,7 +11,7 @@ module.exports = class FavoriteController {
       res.status(200).json(favorites);
     } catch (error) {
       console.error("Error fetching favorite movies:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -43,7 +43,7 @@ module.exports = class FavoriteController {
       res.status(201).json({ message: "Movie added to favorites" });
     } catch (error) {
       console.error("Error adding movie to favorites:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -66,7 +66,7 @@ module.exports = class FavoriteController {
       res.status(200).json({ message: "Note updated successfully" });
     } catch (error) {
       console.error("Error updating favorite note:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -88,7 +88,7 @@ module.exports = class FavoriteController {
       res.status(200).json({ message: "Movie removed from favorites" });
     } catch (error) {
       console.error("Error removing movie from favorites:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 };

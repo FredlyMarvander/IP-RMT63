@@ -14,11 +14,12 @@ app.use(cors());
 
 app.post("/register", UserController.register);
 app.post("/login", UserController.login);
-app.get("/profile", UserController.getUserProfile);
+
 app.post("/login/google", UserController.googleLogin);
 
 app.use(authentication);
 
+app.get("/profile", UserController.getUserProfile);
 app.get("/movies", MovieController.getMovies);
 app.get("/movies/:movieId", MovieController.getMovieDetails);
 app.post("/favorite", FavoriteController.addMovieToFavorite);

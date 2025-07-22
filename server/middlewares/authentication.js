@@ -1,4 +1,5 @@
 const { verifyToken } = require("../helpers/jwt");
+const { User } = require("../models/index");
 
 module.exports = async function authentication(req, res, next) {
   const token = req.headers.authorization;
@@ -9,7 +10,7 @@ module.exports = async function authentication(req, res, next) {
   try {
     const realToken = token.split(" ")[1];
     const verify = verifyToken(realToken);
-    const user = await user.findbyPk(verify.id);
+    const user = await User.findByPk(verify.id);
     if (!user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
