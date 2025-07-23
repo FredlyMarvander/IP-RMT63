@@ -20,6 +20,7 @@ app.post("/login/google", UserController.googleLogin);
 app.use(authentication);
 
 app.get("/profile", UserController.getUserProfile);
+app.get("/recommendations", MovieController.getRecommendations);
 app.get("/movies", MovieController.getMovies);
 app.get("/movies/:movieId", MovieController.getMovieDetails);
 app.post("/favorite", FavoriteController.addMovieToFavorite);
