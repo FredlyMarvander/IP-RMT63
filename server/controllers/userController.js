@@ -1,6 +1,3 @@
-const url =
-  "https://api.themoviedb.org/3/movie/popular?api_key=a8a4b50b025e54e593167639973d34ec&language=en-US&page=1";
-
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client();
 const { User } = require("../models/index");
