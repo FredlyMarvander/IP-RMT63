@@ -1,11 +1,17 @@
 import { useEffect } from "react";
 import { serverApi } from "../api";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { useState } from "react";
+import errorAlert from "../sweetAlert";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    return <Navigate to="/" />;
+  }
 
   const navigate = useNavigate();
   const handleLogin = async (e) => {
@@ -48,7 +54,7 @@ export default function Login() {
       successToast("Login successful!");
       navigate("/");
     } catch (error) {
-      console.error("Error during login:", error);
+      errorAlert(error.response.data.message);
     }
   }
 

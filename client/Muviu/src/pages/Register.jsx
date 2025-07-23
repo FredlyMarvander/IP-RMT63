@@ -1,8 +1,14 @@
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { serverApi } from "../api";
 import { useState } from "react";
+import errorAlert from "../sweetAlert";
 
 export default function Register() {
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    return <Navigate to="/" />;
+  }
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -23,12 +29,7 @@ export default function Register() {
       navigate("/login");
     } catch (error) {
       console.log("Error during registration:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.response.data.message,
-        confirmButtonColor: "#222831",
-      });
+      errorAlert(error.response.data.message);
     }
   };
   return (
