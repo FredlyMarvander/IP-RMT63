@@ -157,7 +157,22 @@ export const fetchFavorite = createAsyncThunk(
   }
 );
 
-export const updateNote = createAsyncThunk("favorite/updateNote", async());
+export const updateNote = createAsyncThunk(
+  "favorite/updateNote",
+  async (notes, id) => {
+    const response = await serverApi.put(
+      "/favorite/" + id,
+      {
+        notes,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    );
+  }
+);
 
 export const removeMovieFromFavorite = createAsyncThunk(
   "favorite/removeMovieFromFavorite",
