@@ -19,12 +19,14 @@ export default function Detail() {
 
   const handleAdd = async (movieId) => {
     try {
-      await dispatch(addMovieToFavorite(movieId)).unwrap();
+      const response = await dispatch(addMovieToFavorite(movieId)).unwrap();
+      console.log(response);
+
       navigate("/favorite");
     } catch (error) {
       console.log(error);
 
-      errorAlert(error.response.data.message);
+      errorAlert(error.message);
     }
   };
 

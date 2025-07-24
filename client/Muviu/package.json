@@ -12,12 +12,15 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.10.0",
+    "bootstrap": "^5.3.7",
     "feather-icons": "^4.29.2",
     "react": "^19.1.0",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router": "^7.7.0",
-    "sweetalert2": "^11.22.2"
+    "sweetalert2": "^11.22.2",
+    "sweetalert2-react-content": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

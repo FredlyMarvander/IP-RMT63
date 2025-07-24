@@ -7,7 +7,13 @@ export const movieSlice = createSlice({
   name: "movies",
   initialState: {
     movies: [],
-    movieDetail: {},
+    movieDetail: {
+      Favorites: [
+        {
+          notes: "",
+        },
+      ],
+    },
     user: {},
     favorite: [],
     loading: false,
@@ -64,22 +70,31 @@ export const movieSlice = createSlice({
 
 export const { setMovies } = movieSlice.actions;
 
-export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
-  try {
-    const response = await serverApi.get("/movies", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-    });
-    console.log(response.data);
+export const fetchMovies = createAsyncThunk(
+  "movies/fetchMovies",
+  async ({ search, sort }) => {
+    const searchParams = new URLSearchParams();
+    searchParams.append("search", search);
+    searchParams.append("sort", sort);
 
-    return response.data;
-  } catch (error) {
-    console.log("Error fetching movies:", error);
+    try {
+      const response = await serverApi.get(
+        "/movies?" + searchParams.toString(),
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
 
-    errorAlert("Failed to fetch movies");
+      return response.data;
+    } catch (error) {
+      console.log("Error fetching movies:", error);
+
+      errorAlert("Failed to fetch movies");
+    }
   }
-});
+);
 
 export const fetchMoviesDetail = createAsyncThunk(
   "movies/fetchMoviesDetail",
@@ -90,7 +105,6 @@ export const fetchMoviesDetail = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-      console.log(response.data, "tes");
 
       return response.data;
     } catch (error) {
@@ -104,25 +118,29 @@ export const fetchMoviesDetail = createAsyncThunk(
 export const addMovieToFavorite = createAsyncThunk(
   "favorite/addMovieToFavorite",
   async (movieId) => {
-    await serverApi.post(
-      "/favorite",
-      {
-        movieId,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    try {
+      const response = await serverApi.post(
+        "/favorite",
+        {
+          movieId,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
 
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: response.data.message,
-      showConfirmButton: false,
-      timer: 1000,
-    });
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: response.data.message,
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
   }
 );
 
@@ -159,7 +177,7 @@ export const fetchFavorite = createAsyncThunk(
 
 export const updateNote = createAsyncThunk(
   "favorite/updateNote",
-  async (notes, id) => {
+  async ({ notes, id }) => {
     const response = await serverApi.put(
       "/favorite/" + id,
       {
@@ -171,6 +189,7 @@ export const updateNote = createAsyncThunk(
         },
       }
     );
+    console.log(response.data, "tesssss");
   }
 );
 

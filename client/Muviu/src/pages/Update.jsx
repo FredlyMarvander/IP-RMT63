@@ -1,10 +1,14 @@
-import { useParams } from "react-router";
-import { fetchMoviesDetail } from "../features/movie/movieSlice";
+import { useNavigate, useParams } from "react-router";
+import { fetchMoviesDetail, updateNote } from "../features/movie/movieSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useState } from "react";
+import errorAlert from "../sweetAlert";
 
 export default function Update() {
   const { id } = useParams();
+  const [notes, setNotes] = useState("");
+  const navigate = useNavigate();
 
   const { movieDetail } = useSelector((state) => state.movie);
   const dispatch = useDispatch();
@@ -13,11 +17,30 @@ export default function Update() {
     dispatch(fetchMoviesDetail(id));
   }, []);
 
-  console.log(movieDetail);
+  useEffect(() => {
+    if (movieDetail) {
+      setNotes(movieDetail.Favorites[0].notes);
+    }
+  }, [movieDetail]);
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(notes, id);
+
+      await dispatch(updateNote({ notes, id }));
+      navigate("/favorite");
+    } catch (error) {
+      console.log("Error at Update.jsx", error);
+    }
+  };
 
   return (
     <>
-      <form className="mt-5 w-25 m-auto p-4 border rounded">
+      <form
+        className="mt-5 w-25 m-auto p-4 border rounded"
+        onSubmit={handleUpdate}
+      >
         <h2 className="text-center my-4" style={{ fontWeight: "700" }}>
           Notes
         </h2>
@@ -29,7 +52,8 @@ export default function Update() {
             placeholder="Write Some Note..."
             className="form-control"
             id="exampleInputPassword1"
-            value={movieDetail}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
           />
         </div>
 

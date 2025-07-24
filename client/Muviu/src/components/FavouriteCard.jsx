@@ -20,42 +20,36 @@ export default function FavoriteCard() {
   if (favorite.length > 0) {
     listFavorite = favorite.map((el) => {
       return (
-        <>
-          <div className="col-md-3" key={el.Movie.id}>
-            <div
-              className="movie-card card h-100 border-0"
-              style={{ width: "17rem" }}
-            >
-              <img
-                src={el.Movie.poster_path}
-                alt={el.Movie.title}
-                className="movie-card-img"
-              />
-              <div className="movie-card-body">
-                <h5 className="movie-card-title mb-2">{el.Movie.title}</h5>
+        <div className="col-md-3" key={el.Movie.id}>
+          <div
+            className="movie-card card h-100 border-0"
+            style={{ width: "17rem" }}
+          >
+            <img
+              src={el.Movie.poster_path}
+              alt={el.Movie.title}
+              className="movie-card-img"
+            />
+            <div className="movie-card-body">
+              <h5 className="movie-card-title mb-2">{el.Movie.title}</h5>
 
-                <div className="d-flex gap-2">
-                  <Link
-                    to={`/update/${el.Movie.id}`}
-                    className="btn btn-light w-100"
-                  >
-                    View Note
-                  </Link>
-                  <button
-                    onClick={() =>
-                      dispatch(removeMovieFromFavorite(el.MovieId))
-                    }
-                    className="btn btn-light w-100"
-                  >
-                    Remove
-                  </button>
-                </div>
+              <div className="d-flex gap-2">
+                <Link
+                  to={`/update/${el.Movie.id}`}
+                  className="btn btn-light w-100"
+                >
+                  View Note
+                </Link>
+                <button
+                  onClick={() => dispatch(removeMovieFromFavorite(el.MovieId))}
+                  className="btn btn-light w-100"
+                >
+                  Remove
+                </button>
               </div>
             </div>
           </div>
-
-          {/* ))} */}
-        </>
+        </div>
       );
     });
   } else {
