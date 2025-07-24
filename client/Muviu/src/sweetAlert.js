@@ -5,5 +5,6 @@ export default function errorAlert(error) {
     icon: "error",
     title: "Oops...",
     text: error,
+    confirmButtonColor: "#222831",
   });
 }
