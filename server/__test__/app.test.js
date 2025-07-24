@@ -1,3 +1,5 @@
+jest.mock("../helpers/gemini", () => jest.fn(() => Promise.resolve("[1,2,3]")));
+
 const request = require("supertest");
 require("dotenv").config();
 const app = require("../app");
@@ -441,6 +443,34 @@ describe("DELETE /favorite/:movieId", () => {
     const response = await request(app)
       .delete("/favorite/9999")
       .set("Authorization", `Bearer ${access_token}invalid`);
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty("message", "Invalid token");
+  });
+});
+
+describe("POST /recommendations", () => {
+  test("POST /recommendations - success", async () => {
+    const response = await request(app)
+      .post("/recommendations")
+      .set("Authorization", `Bearer ${access_token}`)
+      .send({ userResponse: "loves action movies" });
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBeTruthy();
+  });
+
+  test("POST /recommendations - Invalid token (No token)", async () => {
+    const response = await request(app)
+      .post("/recommendations")
+      .send({ userResponse: "loves action movies" });
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty("message", "Invalid token");
+  });
+
+  test("POST /recommendations - Invalid token (wrong token)", async () => {
+    const response = await request(app)
+      .post("/recommendations")
+      .set("Authorization", `Bearer ${access_token}invalid`)
+      .send({ userResponse: "loves action movies" });
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty("message", "Invalid token");
   });

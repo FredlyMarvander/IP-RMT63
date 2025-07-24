@@ -37,7 +37,7 @@ module.exports = class MovieController {
   static async getMovieDetails(req, res) {
     try {
       const { movieId } = req.params;
-      const movie = await Movie.findByPk(movieId);
+      const movie = await Movie.findByPk(movieId, { include: Favorite });
 
       if (!movie) {
         return res.status(404).json({ message: "Movie not found" });
@@ -45,7 +45,7 @@ module.exports = class MovieController {
 
       res.status(200).json(movie);
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -55,7 +55,7 @@ module.exports = class MovieController {
       const movies = await Movie.findAll();
 
       const prompt = `
-        Recommend top 5 movies based on user preferences.
+        Recommend top 3 movies based on user preferences.
         The user enjoys movies where ${userResponse}.
 
         You can only pick from the following movies:
@@ -72,7 +72,7 @@ module.exports = class MovieController {
         recommendationsArray.includes(movie.id)
       );
 
-      res.json(recommendedMovies);
+      res.status(200).json(recommendedMovies);
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
     }

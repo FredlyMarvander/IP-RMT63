@@ -1,4 +1,8 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+const { gemini } = require("./helpers/gemini");
+
 const express = require("express");
 const cors = require("cors");
 const authentication = require("./middlewares/authentication");
@@ -20,7 +24,7 @@ app.post("/login/google", UserController.googleLogin);
 app.use(authentication);
 
 app.get("/profile", UserController.getUserProfile);
-app.get("/recommendations", MovieController.getRecommendations);
+app.post("/recommendations", MovieController.getRecommendations);
 app.get("/movies", MovieController.getMovies);
 app.get("/movies/:movieId", MovieController.getMovieDetails);
 app.post("/favorite", FavoriteController.addMovieToFavorite);

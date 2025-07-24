@@ -26,7 +26,9 @@ module.exports = class FavoriteController {
       });
 
       if (find) {
-        return res.status(400).json({ message: "Movie already in favorite" });
+        return res.status(400).json({
+          message: "Movie already in favorite",
+        });
       }
 
       if (!data) {
