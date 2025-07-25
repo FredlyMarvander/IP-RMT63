@@ -57,7 +57,7 @@ app.get("/getAccessToken", async function (req, res) {
   });
 
   const data2 = await response2.json();
-  console.log(data2);
+  console.log(data2, "<<, Data2");
 
   const { name, login, avatar_url } = data2;
   let email = login + "@github.com";
@@ -65,12 +65,14 @@ app.get("/getAccessToken", async function (req, res) {
   let user = await User.findOne({ where: { email } });
   if (!user) {
     user = await User.create({
-      name,
+      name: name || "anonymous",
       email,
       password: Math.random().toString(36).slice(-8),
       profilePicture: avatar_url,
     });
   }
+
+  console.log(user, "<<, User");
 
   const access_token = signToken({ id: user.id });
   res.redirect("https://muviu-35cc8.web.app/login?accessToken=" + access_token);
