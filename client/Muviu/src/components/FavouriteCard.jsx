@@ -14,8 +14,6 @@ export default function FavoriteCard() {
     dispatch(fetchFavorite());
   }, []);
 
-  console.log(favorite);
-
   let listFavorite;
   if (favorite.length > 0) {
     listFavorite = favorite.map((el) => {
@@ -23,7 +21,7 @@ export default function FavoriteCard() {
         <div className="col-md-3" key={el.Movie.id}>
           <div
             className="movie-card card h-100 border-0"
-            style={{ width: "17rem" }}
+            style={{ width: "18rem" }}
           >
             <img
               src={el.Movie.poster_path}
@@ -31,7 +29,9 @@ export default function FavoriteCard() {
               className="movie-card-img"
             />
             <div className="movie-card-body">
-              <h5 className="movie-card-title mb-2">{el.Movie.title}</h5>
+              <h5 className="movie-card-title mb-2" style={{ color: "white" }}>
+                {el.Movie.title}
+              </h5>
 
               <div className="d-flex gap-2">
                 <Link

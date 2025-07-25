@@ -117,10 +117,7 @@ export default function Home() {
 
   return (
     <>
-      <div
-        className="container"
-        style={{ background: "#fff", minHeight: "100vh", padding: "0" }}
-      >
+      <div className="content-container">
         <div className="container-fluid py-4">
           <div className="row">
             <MovieCard />

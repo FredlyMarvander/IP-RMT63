@@ -31,7 +31,7 @@ export default function Detail() {
   };
 
   return (
-    <>
+    <div className="content-container">
       <div className="container-fluid px-0">
         <div
           className="row gx-0 shadow-lg rounded overflow-hidden"
@@ -100,6 +100,6 @@ export default function Detail() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

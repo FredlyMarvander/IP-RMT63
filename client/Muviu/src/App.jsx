@@ -10,7 +10,6 @@ import { store } from "./store";
 import Detail from "./pages/Detail";
 import Update from "./pages/Update";
 import Favorite from "./pages/Favorite";
-import Ai from "./pages/Ai";
 
 function App() {
   return (
@@ -23,7 +22,7 @@ function App() {
             <Route path="/" element={<AuntLayout />}>
               <Route path="" element={<Home />} />
               <Route path="favorite" element={<Favorite />} />
-              <Route path="ai" element={<Ai />} />
+
               <Route path="update/:id" element={<Update />} />
               <Route path="detail/:id" element={<Detail />} />
             </Route>
