@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import errorAlert from "../sweetAlert";
+import "../styles/auth.css";
 
 export default function Update() {
   const { id } = useParams();
@@ -36,38 +37,30 @@ export default function Update() {
   };
 
   return (
-    <>
+    <div className="content-container mt-5">
       <form
-        className="mt-5 w-25 m-auto p-4 border rounded"
+        className="auth-card mx-auto"
+        style={{ maxWidth: "500px" }}
         onSubmit={handleUpdate}
       >
-        <h2 className="text-center my-4" style={{ fontWeight: "700" }}>
-          Notes
-        </h2>
+        <h2 className="auth-title">Update Notes</h2>
 
-        <div className="mb-4">
+        <div className="form-group">
+          <label className="form-label">Notes</label>
           <textarea
             rows="6"
-            cols="50"
-            placeholder="Write Some Note..."
-            className="form-control"
-            id="exampleInputPassword1"
+            placeholder="Write some notes about this movie..."
+            className="form-input"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
+            style={{ minHeight: "150px", resize: "vertical" }}
           />
         </div>
 
-        <button type="submit" className="btn btn-dark w-100 mt-1">
-          Update
+        <button type="submit" className="auth-button">
+          Update Notes
         </button>
-        <div className="d-flex justify-content-center w-100">
-          <div
-            style={{ width: "100%" }}
-            className="w-100 mt-4"
-            id="buttonDiv"
-          ></div>
-        </div>
       </form>
-    </>
+    </div>
   );
 }

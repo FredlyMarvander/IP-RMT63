@@ -26,7 +26,9 @@ export default function MovieCard() {
               className="movie-card-img"
             />
             <div className="movie-card-body">
-              <h5 className="movie-card-title">{movie.title}</h5>
+              <h5 className="movie-card-title" style={{ color: "white" }}>
+                {movie.title}
+              </h5>
             </div>
           </div>
         </Link>
