@@ -106,4 +106,12 @@ module.exports = class UserController {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  static async githubLogin(req, res) {
+    try {
+      const state = generateState();
+    } catch (error) {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 };
