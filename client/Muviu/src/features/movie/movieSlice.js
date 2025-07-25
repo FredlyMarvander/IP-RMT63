@@ -90,8 +90,6 @@ export const fetchMovies = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log("Error fetching movies:", error);
-
-      errorAlert("Failed to fetch movies");
     }
   }
 );

@@ -73,7 +73,7 @@ app.get("/getAccessToken", async function (req, res) {
   }
 
   const access_token = signToken({ id: user.id });
-  res.redirect("http://localhost:5173/login?accessToken=" + access_token);
+  res.redirect("https://muviu-35cc8.web.app/login?accessToken=" + access_token);
 });
 
 app.get("/getUserData", async function (req, res) {
