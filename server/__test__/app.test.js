@@ -1,5 +1,3 @@
-jest.mock("../helpers/gemini", () => jest.fn(() => Promise.resolve("[1,2,3]")));
-
 const request = require("supertest");
 require("dotenv").config();
 const app = require("../app");
@@ -456,7 +454,7 @@ describe("POST /recommendations", () => {
       .send({ userResponse: "loves action movies" });
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBeTruthy();
-  });
+  }, 60000);
 
   test("POST /recommendations - Invalid token (No token)", async () => {
     const response = await request(app)
