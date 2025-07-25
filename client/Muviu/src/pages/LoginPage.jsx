@@ -35,9 +35,12 @@ export default function Login() {
 
     if (codeParam && localStorage.getItem("access_token") === null) {
       async function getAccessToken() {
-        await fetch("http://localhost:3000/getAccessToken?code=" + codeParam, {
-          method: "GET",
-        })
+        await fetch(
+          "https://muviu.fredlymarvander.com/getAccessToken?code=" + codeParam,
+          {
+            method: "GET",
+          }
+        )
           .then((response) => {
             return response.json();
           })
